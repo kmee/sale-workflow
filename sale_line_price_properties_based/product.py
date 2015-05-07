@@ -60,6 +60,7 @@ class ProductProduct(orm.Model):
                         'ptype': ptype,
                         'product_id': product.id,
                         'properties': context['properties'],
+                        'price_get': res[product.id],
                     }
                     try:
                         exec product.price_formula_id.formula_text in localdict

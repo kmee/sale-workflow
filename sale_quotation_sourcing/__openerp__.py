@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 #    Author: Alexandre Fayolle, Leonardo Pistone
-#    Copyright 2014 Camptocamp SA
+#    Copyright 2014-2015 Camptocamp SA
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -26,12 +26,13 @@
     'website': "http://www.camptocamp.com",
 
     'category': 'Sales',
-    'version': '0.3.1',
+    'version': '8.0.0.3.1',
 
     'depends': ['sale_stock',
                 'purchase',
                 'stock_dropshipping',
-                'sale_exceptions'],
+                'sale_exception',
+                'sale_procurement_group_by_line'],
     'data': ['views/sale_order_sourcing.xml',
              'views/sale_order.xml',
              'security/group.xml',
@@ -46,4 +47,5 @@
         'test/test_manual_mto_sourcing.yml',
         'test/test_manual_sourcing_dropshipping.yml',
     ],
+    'installable': False,
 }

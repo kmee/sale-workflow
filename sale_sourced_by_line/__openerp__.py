@@ -21,7 +21,7 @@
 
 {'name': 'Sale Sourced by Line',
  'summary': 'Multiple warehouse source locations for Sale order',
- 'version': '1.0',
+ 'version': '8.0.1.1.0',
  'author': "Camptocamp,Odoo Community Association (OCA)",
  'category': 'Warehouse',
  'license': 'AGPL-3',
@@ -48,6 +48,7 @@ Contributors
 
 """,
  'depends': ['sale_stock',
+             'sale_procurement_group_by_line',
              ],
  'demo': [],
  'data': ['view/sale_view.xml',
@@ -57,5 +58,5 @@ Contributors
           'test/sale_order_not_sourced.yml',
           ],
  'auto_install': False,
- 'installable': True,
+ 'installable': False,
  }

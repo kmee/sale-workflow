@@ -19,12 +19,12 @@
 #
 #
 {'name': 'Sale stock exception',
- 'version': '1.1',
+ 'version': '8.0.1.2.0',
  'author': "Camptocamp,Odoo Community Association (OCA)",
  'maintainer': 'Camptocamp',
  'category': 'sale',
  'complexity': "normal",
- 'depends': ['sale_exceptions', 'sale_stock'],
+ 'depends': ['sale_exception', 'sale_stock'],
  'description': """
 Sale stock exception
 --------------------
@@ -44,6 +44,12 @@ so if your stock have children or if you have configured automated stock
 actions they must pass by the location related to the SO line, else they will
 be ignored.
 
+If the module sale_owner_stock_sourcing is installed, each sale order line can
+specify a stock owner. In that case, the owner will be used when computing the
+virtual stock availability. For this to work correctly,
+https://github.com/odoo/odoo/issues/5814 needs to be fixed (fixes are proposed
+both for odoo and OCB).
+
 **Warning:**
 
 The second test is a workaround to compensate the lack of
@@ -54,7 +60,7 @@ and should not be be used if you have hundreds of simultaneous open SO.
  'data': ["data/data.xml"],
  'demo': [],
  'test': ['test/no_stock_test.yml'],
- 'installable': True,
+ 'installable': False,
  'auto_install': False,
  'license': 'AGPL-3',
  'application': False,

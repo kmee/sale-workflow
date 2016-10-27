@@ -20,7 +20,7 @@
 
 {'name': 'Partner Prepayment',
  'summary': 'Option on partner to set prepayment policy',
- 'version': '1.0',
+ 'version': '8.0.1.0.0',
  'author': "Camptocamp,Odoo Community Association (OCA)",
  'category': 'Sales',
  'license': 'AGPL-3',
@@ -42,6 +42,6 @@ is set to 'Before Delivery'.
           ],
  'test': ['test/sale_order_prepaid.yml',
           ],
- 'installable': True,
+ 'installable': False,
  'auto_install': False,
  }

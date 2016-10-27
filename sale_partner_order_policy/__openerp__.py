@@ -22,7 +22,7 @@
 
 {
     'name': 'Sale Partner Order Policy',
-    'version': '1.0',
+    'version': '8.0.1.0.0',
     'category': 'Sales Management',
     'license': 'AGPL-3',
     'summary': "Adds customer create invoice method on partner form",
@@ -44,5 +44,5 @@ This module has been written by Alexis de Lattre
     'depends': ['sale_stock'],
     'data': ['partner_view.xml'],
     'demo': ['partner_demo.xml'],
-    'installable': True,
+    'installable': False,
 }

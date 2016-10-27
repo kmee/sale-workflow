@@ -20,7 +20,7 @@
 #
 {"name": "Sale Owner Stock Sourcing",
  "summary": "Manage stock ownership on sale order lines",
- "version": "0.1",
+ "version": "8.0.0.1.0",
  "author": "Camptocamp,Odoo Community Association (OCA)",
  "license": "AGPL-3",
  "category": "Purchase Management",
@@ -34,6 +34,6 @@
  "data": ['view/sale_order.xml',
           'security/group.xml',
           ],
- 'installable': True,
+ 'installable': False,
  "auto_install": False,
  }

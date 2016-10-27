@@ -20,7 +20,7 @@
 #
 
 {'name': 'Sale Cancel Reason',
- 'version': '1.0',
+ 'version': '8.0.1.1',
  'author': "Camptocamp,Odoo Community Association (OCA)",
  'category': 'Sale',
  'license': 'AGPL-3',
@@ -46,5 +46,5 @@ it is chosen from a configured list.
  'auto_install': False,
  'test': ['test/sale_order_cancel.yml',
           ],
- 'installable': True,
+ 'installable': False,
  }

@@ -139,10 +139,10 @@ class SaleOrderLine(models.Model):
                 'product_qty': self.rental_qty,
                 'rental_product_qty': self.rental_qty,
                 'product_uom': self.product_id.rented_product_id.uom_id.id,
-                'location_id':
-                self.order_id.warehouse_id.rental_out_location_id.id,
-                'route_ids':
-                [(6, 0, [self.order_id.warehouse_id.rental_route_id.id])],
+                # 'location_id':
+                # self.order_id.warehouse_id.rental_out_location_id.id,
+                # 'route_ids':
+                # [(6, 0, [self.order_id.warehouse_id.rental_route_id.id])],
                 'date_planned': self._get_rental_date_planned(),
                 })
         elif self.sell_rental_id:

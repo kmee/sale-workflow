@@ -8,8 +8,9 @@
     "author": "Odoo Community Association (OCA), Camptocamp",
     "license": "AGPL-3",
     "depends": [
+        "base_setup",
         "auth_api_key",
-        "base_jsonify",
+        "jsonifier",
         "pricelist_cache",
     ],
     "website": "https://github.com/OCA/sale-workflow",

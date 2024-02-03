@@ -13,7 +13,7 @@
     <field name="model">res.config.settings</field>
     <field name="inherit_id" ref="base_setup.res_config_settings_view_form" />
     <field name="arch" type="xml">
-        <xpath expr="//div[@id='multi_company']" position="before">
+        <xpath expr="//div[@name='integration']" position="inside">
             <h2>Pricelist Cache API keys</h2>
             <div
                     class="row mt16 o_settings_container"

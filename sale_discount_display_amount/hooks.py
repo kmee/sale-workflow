@@ -16,36 +16,35 @@ COLUMNS = (
 )
 
 
-def pre_init_hook(cr):
+def pre_init_hook(env):
     for table, column in COLUMNS:
-        if not column_exists(cr, table, column):
+        if not column_exists(env.cr, table, column):
             _logger.info("Create discount column %s in database", column)
-            create_column(cr, table, column, "numeric")
+            create_column(env.cr, table, column, "numeric")
 
 
-def post_init_hook(cr, registry):
+def post_init_hook(env):
     _logger.info("Compute discount columns")
-    env = Environment(cr, SUPERUSER_ID, {})
+    # env = Environment(env.cr, SUPERUSER_ID, {})
 
     query = """
     update sale_order_line
     set price_total_no_discount = price_total
     where discount = 0.0
     """
-    cr.execute(query)
+    env.cr.execute(query)
 
     query = """
         update sale_order
         set price_total_no_discount = amount_total
         """
-    cr.execute(query)
+    env.cr.execute(query)
 
     query = """
     select distinct order_id from sale_order_line where discount > 0.0;
     """
 
-    cr.execute(query)
-    order_ids = cr.fetchall()
+    env.cr.execute(query)
+    order_ids = env.cr.fetchall()
 
     orders = env["sale.order"].search([("id", "in", order_ids)])
-    orders.mapped("order_line")._update_discount_display_fields()

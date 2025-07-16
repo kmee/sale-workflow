@@ -31,7 +31,6 @@
                             <field
                                 name="product_id"
                                 options="{'no_open': True, 'no_create': True}"
-                                attrs="{'required': [('display_type', '=', False)]}"
                             />
                             <field name="display_type" />
                             <field name="name" widget="section_and_note_text" />

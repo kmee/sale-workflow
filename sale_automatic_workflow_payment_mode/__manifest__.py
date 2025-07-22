@@ -3,11 +3,14 @@
 
 {
     "name": "Sale Automatic Workflow - Payment Mode",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "author": "Camptocamp,Sodexis,Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "category": "Sales Management",
-    "depends": ["sale_automatic_workflow", "account_payment_sale"],  # oca/bank-payment
+    "depends": [
+        "sale_automatic_workflow",
+        "account_payment_sale"
+    ],
     "website": "https://github.com/OCA/sale-workflow",
     "data": [
         "views/account_payment_mode_views.xml",

@@ -2,23 +2,13 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo.exceptions import ValidationError
-from odoo.tests import TransactionCase, tagged
+from odoo.tests import TransactionCase
 
 
-@tagged("-at_install", "post_install")
 class TestInvoicefinishedTask(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        if not cls.env.company.chart_template_id:
-            # Load a CoA if there's none in current company
-            coa = cls.env.ref("l10n_generic_coa.configurable_chart_template", False)
-            if not coa:
-                # Load the first available CoA
-                coa = cls.env["account.chart.template"].search(
-                    [("visible", "=", True)], limit=1
-                )
-            coa.try_loading(company=cls.env.company, install_demo=False)
         cls.hour_uom = cls.env.ref("uom.product_uom_hour")
         cls.env.user.company_id.project_time_mode_id = cls.hour_uom.id
         group_manager = cls.env.ref("sales_team.group_sale_manager")
@@ -148,7 +138,7 @@ class TestInvoicefinishedTask(TransactionCase):
         # Click on toggle_invoiceable method after the so is invoiced
         with self.assertRaises(ValidationError):
             task.toggle_invoiceable()
-        self.sale_order.action_done()
+        self.sale_order.action_lock()
         with self.assertRaises(ValidationError):
             task.write({"sale_line_id": self.sale_order_policy_delivery.order_line.id})
         # Try to create a task and link it to so line
@@ -188,7 +178,7 @@ class TestInvoicefinishedTask(TransactionCase):
         task = self.env["project.task"].create(
             {
                 "name": "Other Task",
-                "manager_id": self.manager.id,
+                "partner_id": self.manager.id,
                 "user_ids": [(4, self.manager.id)],
                 "project_id": self.project.id,
                 "sale_line_id": self.sale_order.order_line.id,

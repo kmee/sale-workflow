@@ -82,11 +82,6 @@ msgid "ID"
 msgstr "Id"
 
 #. module: sale_stock_picking_blocking
-#: model:ir.model.fields,field_description:sale_stock_picking_blocking.field_sale_delivery_block_reason____last_update
-msgid "Last Modified on"
-msgstr "Sidst ændret den"
-
-#. module: sale_stock_picking_blocking
 #: model:ir.model.fields,field_description:sale_stock_picking_blocking.field_sale_delivery_block_reason__write_uid
 msgid "Last Updated by"
 msgstr "Sidst opdateret af"
@@ -151,6 +146,9 @@ msgid ""
 "Set a reason to block by default the deliveries in this payment term sales "
 "orders."
 msgstr ""
+
+#~ msgid "Last Modified on"
+#~ msgstr "Sidst ændret den"
 
 #~ msgid "Partner"
 #~ msgstr "Partner"

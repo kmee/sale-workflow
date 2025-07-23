@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-02 10:22+0000\n"
-"PO-Revision-Date: 2024-07-09 09:58+0000\n"
+"PO-Revision-Date: 2024-08-07 08:58+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -35,7 +35,6 @@ msgstr "Flusso di lavoro automatico"
 
 #. module: sale_automatic_workflow
 #: model:ir.actions.server,name:sale_automatic_workflow.ir_cron_automatic_workflow_job_ir_actions_server
-#: model:ir.cron,cron_name:sale_automatic_workflow.ir_cron_automatic_workflow_job
 msgid "Automatic Workflow Job"
 msgstr "Lavoro flusso di lavoro automatico"
 
@@ -52,11 +51,6 @@ msgid ""
 msgstr ""
 "Fare attenzione, se viene salvato l'ordine con queste impostazioni, potrebbe "
 "essere confermato automaticamente, anche qualora sia in fase di modifica."
-
-#. module: sale_automatic_workflow
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__validate_picking
-msgid "Confirm and Transfer Picking"
-msgstr "Conferma e trasferisci il prelievo"
 
 #. module: sale_automatic_workflow
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__create_invoice
@@ -84,16 +78,6 @@ msgstr "Creato da"
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__create_date
 msgid "Created on"
 msgstr "Creato il"
-
-#. module: sale_automatic_workflow
-#: model:ir.model.fields.selection,name:sale_automatic_workflow.selection__sale_workflow_process__picking_policy__one
-msgid "Deliver all products at once"
-msgstr "Consegna tutti i prodotti in una volta"
-
-#. module: sale_automatic_workflow
-#: model:ir.model.fields.selection,name:sale_automatic_workflow.selection__sale_workflow_process__picking_policy__direct
-msgid "Deliver each product when available"
-msgstr "Consegna ogni prodotto quando disponibile"
 
 #. module: sale_automatic_workflow
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_automatic_workflow_job__display_name
@@ -150,12 +134,6 @@ msgid "Journal Entry"
 msgstr "Registrazione contabile"
 
 #. module: sale_automatic_workflow
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_automatic_workflow_job____last_update
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process____last_update
-msgid "Last Modified on"
-msgstr "Ultima modifica il"
-
-#. module: sale_automatic_workflow
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_automatic_workflow_job__write_uid
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__write_uid
 msgid "Last Updated by"
@@ -188,16 +166,6 @@ msgid "Order Filter Domain"
 msgstr "Dominio filtro ordine"
 
 #. module: sale_automatic_workflow
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__picking_filter_id
-msgid "Picking Filter"
-msgstr "Filtro prelIevo"
-
-#. module: sale_automatic_workflow
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__picking_filter_domain
-msgid "Picking Filter Domain"
-msgstr "Dominio filtro prelievo"
-
-#. module: sale_automatic_workflow
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__register_payment
 msgid "Register Payment"
 msgstr "Registra pagamento"
@@ -227,7 +195,6 @@ msgstr "Dominio filtro vendita effettuata"
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_account_bank_statement_line__workflow_process_id
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_account_move__workflow_process_id
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_account_payment__workflow_process_id
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_stock_picking__workflow_process_id
 msgid "Sale Workflow Process"
 msgstr "Flusso di vendita"
 
@@ -256,21 +223,6 @@ msgstr ""
 "prelievi..."
 
 #. module: sale_automatic_workflow
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__send_invoice
-msgid "Send Invoice"
-msgstr "Invia fattura"
-
-#. module: sale_automatic_workflow
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__send_invoice_filter_id
-msgid "Send Invoice Filter"
-msgstr "Filtro invio fattura"
-
-#. module: sale_automatic_workflow
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__send_invoice_filter_domain
-msgid "Send Invoice Filter Domain"
-msgstr "Dominio filtro invio fattura"
-
-#. module: sale_automatic_workflow
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__send_order_confirmation_mail
 msgid "Send Order Confirmation Mail"
 msgstr "Invia e-mail di conferma ordine"
@@ -284,21 +236,6 @@ msgstr "Imposta il registro predefinito da utilizzare sulla fattura"
 #: model_terms:ir.ui.view,arch_db:sale_automatic_workflow.sale_workflow_process_view_form
 msgid "Set selection based on a search filter:"
 msgstr "Imposta la selezione basata a un filtro di ricerca:"
-
-#. module: sale_automatic_workflow
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__picking_policy
-msgid "Shipping Policy"
-msgstr "Politica di spedizione"
-
-#. module: sale_automatic_workflow
-#: model:ir.model,name:sale_automatic_workflow.model_stock_move
-msgid "Stock Move"
-msgstr "Movimento di magazzino"
-
-#. module: sale_automatic_workflow
-#: model:ir.model,name:sale_automatic_workflow.model_stock_picking
-msgid "Transfer"
-msgstr "Trasferimento"
 
 #. module: sale_automatic_workflow
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__validate_invoice
@@ -351,6 +288,18 @@ msgstr "Opzioni flusso"
 #, python-format
 msgid "Workflow Warning"
 msgstr "Avviso flusso"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Ultima modifica il"
+
+#~ msgid "Shipping Policy"
+#~ msgstr "Politica di spedizione"
+
+#~ msgid "Stock Move"
+#~ msgstr "Movimento di magazzino"
+
+#~ msgid "Transfer"
+#~ msgstr "Trasferimento"
 
 #~ msgid "Invoice"
 #~ msgstr "Fattura"

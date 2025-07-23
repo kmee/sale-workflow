@@ -9,11 +9,10 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-02 10:22+0000\n"
-"PO-Revision-Date: 2024-05-22 00:02+0000\n"
-"Last-Translator: Rodrigo Macedo <sottomaiormacedotec@users.noreply."
-"translation.odoo-community.org>\n"
-"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/teams/"
-"23907/pt_BR/)\n"
+"PO-Revision-Date: 2023-10-09 17:37+0000\n"
+"Last-Translator: Adriano Prado <adrianojprado@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/oca/"
+"teams/23907/pt_BR/)\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,7 +36,6 @@ msgstr "Fluxo de trabalho automático"
 
 #. module: sale_automatic_workflow
 #: model:ir.actions.server,name:sale_automatic_workflow.ir_cron_automatic_workflow_job_ir_actions_server
-#: model:ir.cron,cron_name:sale_automatic_workflow.ir_cron_automatic_workflow_job
 msgid "Automatic Workflow Job"
 msgstr "Job de Workflow Automático"
 
@@ -54,11 +52,6 @@ msgid ""
 msgstr ""
 "Tenha cuidado, se você salvar o pedido com essa configuração, pode ser "
 "confirmado automaticamente, mesmo se você estiver editando."
-
-#. module: sale_automatic_workflow
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__validate_picking
-msgid "Confirm and Transfer Picking"
-msgstr "Confirmar e Transferir Separação"
 
 #. module: sale_automatic_workflow
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__create_invoice
@@ -86,16 +79,6 @@ msgstr "Criado por"
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__create_date
 msgid "Created on"
 msgstr "Criado em"
-
-#. module: sale_automatic_workflow
-#: model:ir.model.fields.selection,name:sale_automatic_workflow.selection__sale_workflow_process__picking_policy__one
-msgid "Deliver all products at once"
-msgstr "Entregar todos os produtos de uma vez"
-
-#. module: sale_automatic_workflow
-#: model:ir.model.fields.selection,name:sale_automatic_workflow.selection__sale_workflow_process__picking_policy__direct
-msgid "Deliver each product when available"
-msgstr "Entregar cada produto quando disponível"
 
 #. module: sale_automatic_workflow
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_automatic_workflow_job__display_name
@@ -152,12 +135,6 @@ msgid "Journal Entry"
 msgstr "Entrada Diário"
 
 #. module: sale_automatic_workflow
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_automatic_workflow_job____last_update
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process____last_update
-msgid "Last Modified on"
-msgstr "Última atualização em"
-
-#. module: sale_automatic_workflow
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_automatic_workflow_job__write_uid
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__write_uid
 msgid "Last Updated by"
@@ -190,16 +167,6 @@ msgid "Order Filter Domain"
 msgstr "Domínio do Filtro do Pedido"
 
 #. module: sale_automatic_workflow
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__picking_filter_id
-msgid "Picking Filter"
-msgstr "Filtro de Separação"
-
-#. module: sale_automatic_workflow
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__picking_filter_domain
-msgid "Picking Filter Domain"
-msgstr "Domínio do Filtro de Separação"
-
-#. module: sale_automatic_workflow
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__register_payment
 msgid "Register Payment"
 msgstr "Registrar Pagamento"
@@ -207,7 +174,7 @@ msgstr "Registrar Pagamento"
 #. module: sale_automatic_workflow
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__payment_filter_id
 msgid "Register Payment Invoice Filter"
-msgstr "Filtro de registro de pagamento de fatura"
+msgstr ""
 
 #. module: sale_automatic_workflow
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__sale_done
@@ -229,7 +196,6 @@ msgstr "Domínio do Filtro de Conclusão da Venda"
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_account_bank_statement_line__workflow_process_id
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_account_move__workflow_process_id
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_account_payment__workflow_process_id
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_stock_picking__workflow_process_id
 msgid "Sale Workflow Process"
 msgstr "Processo de Workflow de Venda"
 
@@ -257,21 +223,6 @@ msgstr ""
 "Agendador que executará automaticamente a validação de faturas, separações..."
 
 #. module: sale_automatic_workflow
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__send_invoice
-msgid "Send Invoice"
-msgstr "Enviar fatura"
-
-#. module: sale_automatic_workflow
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__send_invoice_filter_id
-msgid "Send Invoice Filter"
-msgstr "Filtro de Envio de fatura"
-
-#. module: sale_automatic_workflow
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__send_invoice_filter_domain
-msgid "Send Invoice Filter Domain"
-msgstr "Domínio de filtro de envio de fatura"
-
-#. module: sale_automatic_workflow
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__send_order_confirmation_mail
 msgid "Send Order Confirmation Mail"
 msgstr "Enviar e-mail de confirmação do pedido"
@@ -285,21 +236,6 @@ msgstr "Defina o diário padrão para ser usado na fatura"
 #: model_terms:ir.ui.view,arch_db:sale_automatic_workflow.sale_workflow_process_view_form
 msgid "Set selection based on a search filter:"
 msgstr "Defina a seleção baseada em um filtro de pesquisa:"
-
-#. module: sale_automatic_workflow
-#: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__picking_policy
-msgid "Shipping Policy"
-msgstr "Política de Entrega"
-
-#. module: sale_automatic_workflow
-#: model:ir.model,name:sale_automatic_workflow.model_stock_move
-msgid "Stock Move"
-msgstr "Movimentação de estoque"
-
-#. module: sale_automatic_workflow
-#: model:ir.model,name:sale_automatic_workflow.model_stock_picking
-msgid "Transfer"
-msgstr "Transferir"
 
 #. module: sale_automatic_workflow
 #: model:ir.model.fields,field_description:sale_automatic_workflow.field_sale_workflow_process__validate_invoice
@@ -351,6 +287,33 @@ msgstr "Opções de Workflow"
 #, python-format
 msgid "Workflow Warning"
 msgstr "Aviso de Workflow"
+
+#~ msgid "Confirm and Transfer Picking"
+#~ msgstr "Confirmar e Transferir Separação"
+
+#~ msgid "Deliver all products at once"
+#~ msgstr "Entregar todos os produtos de uma vez"
+
+#~ msgid "Deliver each product when available"
+#~ msgstr "Entregar cada produto quando disponível"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Última atualização em"
+
+#~ msgid "Picking Filter"
+#~ msgstr "Filtro de Separação"
+
+#~ msgid "Picking Filter Domain"
+#~ msgstr "Domínio do Filtro de Separação"
+
+#~ msgid "Shipping Policy"
+#~ msgstr "Política de Entrega"
+
+#~ msgid "Stock Move"
+#~ msgstr "Movimentação de estoque"
+
+#~ msgid "Transfer"
+#~ msgstr "Transferir"
 
 #~ msgid "Automatic Workflow Create Invoice Filter"
 #~ msgstr "Filtro de Workflow para Criar a Fatura"

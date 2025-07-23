@@ -1,26 +1,14 @@
 # Copyright 2017 ForgeFlow S.L.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo.exceptions import UserError
-from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 
 
-@tagged("post_install", "-at_install")
 class TestSaleForceInvoiced(TransactionCase):
     def setUp(self):
-        super(TestSaleForceInvoiced, self).setUp()
+        super().setUp()
         self.sale_order_model = self.env["sale.order"]
         self.sale_order_line_model = self.env["sale.order.line"]
-        if not self.env.company.chart_template_id:
-            # Load a CoA if there's none in current company
-            coa = self.env.ref("l10n_generic_coa.configurable_chart_template", False)
-            if not coa:
-                # Load the first available CoA
-                coa = self.env["account.chart.template"].search(
-                    [("visible", "=", True)], limit=1
-                )
-            coa.try_loading(company=self.env.company, install_demo=False)
 
         # Data
         product_ctg = self._create_product_category()
@@ -81,47 +69,19 @@ class TestSaleForceInvoiced(TransactionCase):
             so.invoice_status, "to invoice", "The invoice status should be To Invoice"
         )
 
-        so.action_done()
+        so.action_lock()
         so.force_invoiced = True
         self.assertEqual(
             so.invoice_status, "invoiced", "The invoice status should be Invoiced"
+        )
+        self.assertEqual(
+            sol1.invoice_status, "invoiced", "The SOL invoice status should be Invoiced"
+        )
+        self.assertEqual(
+            sol2.invoice_status, "invoiced", "The SOL invoice status should be Invoiced"
         )
 
         so.force_invoiced = False
         self.assertEqual(
             so.invoice_status, "to invoice", "The invoice status should be To Invoice"
         )
-
-    def test_create_invoice_on_fully_invoiced_sales_order(self):
-        """On wizard sale.advance.payment.inv test that user can not create an invoice
-        for fully_invoiced sale order"""
-        so = self.sale_order_model.create({"partner_id": self.customer.id})
-        sol1 = self.sale_order_line_model.create(
-            {"product_id": self.service_1.id, "product_uom_qty": 1, "order_id": so.id}
-        )
-        sol2 = self.sale_order_line_model.create(
-            {"product_id": self.service_2.id, "product_uom_qty": 2, "order_id": so.id}
-        )
-        # confirm quotation
-        so.action_confirm()
-        # update quantities delivered
-        sol1.qty_delivered = 1
-        sol2.qty_delivered = 2
-        so.action_done()
-        so.force_invoiced = True
-
-        wizard = (
-            self.env["sale.advance.payment.inv"]
-            .with_context(active_model="sale.order", active_id=so.id, active_ids=so.ids)
-            .create(
-                {
-                    "advance_payment_method": "delivered",
-                }
-            )
-        )
-        with self.assertRaisesRegex(
-            UserError,
-            "The order %s is forced as invoiced. "
-            "You should first remove this flag to create a new invoice." % so.name,
-        ):
-            wizard.create_invoices()

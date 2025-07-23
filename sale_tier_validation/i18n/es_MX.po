@@ -17,11 +17,6 @@ msgstr ""
 "X-Generator: Weblate 4.14.1\n"
 
 #. module: sale_tier_validation
-#: model_terms:ir.ui.view,arch_db:sale_tier_validation.sale_config_settings_form_view
-msgid "Block Printing of Unvalidated Quotations"
-msgstr ""
-
-#. module: sale_tier_validation
 #: model:ir.model.fields,help:sale_tier_validation.field_res_company__sale_report_print_block
 #: model:ir.model.fields,help:sale_tier_validation.field_res_config_settings__sale_report_print_block
 #: model_terms:ir.ui.view,arch_db:sale_tier_validation.sale_config_settings_form_view
@@ -50,8 +45,13 @@ msgid "Has Comment"
 msgstr "Tiene comentario"
 
 #. module: sale_tier_validation
-#: model:ir.model.fields,field_description:sale_tier_validation.field_sale_order__is_reevaluation_required
-msgid "Is Reevaluation Required"
+#: model:ir.model.fields,field_description:sale_tier_validation.field_sale_order__hide_reviews
+msgid "Hide Reviews"
+msgstr ""
+
+#. module: sale_tier_validation
+#: model:ir.model.fields,help:sale_tier_validation.field_sale_order__has_comment
+msgid "If set, Allow the reviewer to leave a comment on the review."
 msgstr ""
 
 #. module: sale_tier_validation

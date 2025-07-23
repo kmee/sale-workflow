@@ -13,7 +13,7 @@
                 expr="//field[@name='order_line']/tree/field[@name='price_unit']"
                 position="after"
             >
-                <field name="order_partner_id" invisible="1" />
+                <field name="order_partner_id" column_invisible="1" />
                 <field
                     name="id"
                     string=" "
@@ -21,12 +21,6 @@
                     widget="sale_line_price_history_widget"
                     help="Price History"
                 />
-            </xpath>
-            <xpath
-                expr="//field[@name='order_line']/kanban/field[@name='price_unit']"
-                position="after"
-            >
-                <field name="discount" groups="product.group_discount_per_so_line" />
             </xpath>
             <xpath
                 expr="//field[@name='order_line']/kanban//t[@t-out='record.price_unit.value']/.."

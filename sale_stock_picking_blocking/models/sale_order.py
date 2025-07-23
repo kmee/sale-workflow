@@ -1,4 +1,4 @@
-# Copyright 2019 ForgeFlow S.L.
+# Copyright 2024 ForgeFlow S.L.
 #   (http://www.forgeflow.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
@@ -14,7 +14,6 @@ class SaleOrder(models.Model):
         string="Delivery Block Reason",
         compute="_compute_delivery_block_id",
         store=True,
-        states={"draft": [("readonly", False)], "sent": [("readonly", False)]},
     )
 
     @api.depends("partner_id", "payment_term_id")

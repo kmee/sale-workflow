@@ -18,25 +18,27 @@ class SaleOrderLine(models.Model):
     @api.constrains("discount_fixed", "discount")
     def _check_discounts(self):
         """Check that the fixed discount and the discount percentage are consistent."""
-        precision = self.env["decimal.precision"].precision_get("Discount")
         for line in self:
             if line.discount_fixed and line.discount:
+                currency = line.currency_id
                 calculated_fixed_discount = float_round(
                     line._get_discount_from_fixed_discount(),
-                    precision_digits=precision,
+                    precision_rounding=currency.rounding,
                 )
+
                 if (
                     float_compare(
                         calculated_fixed_discount,
                         line.discount,
-                        precision_digits=precision,
+                        precision_rounding=currency.rounding,
                     )
                     != 0
                 ):
                     raise ValidationError(
                         _(
-                            "The fixed discount %(fixed)s does not match the calculated "
-                            "discount %(discount)s %%. Please correct one of the discounts."
+                            "The fixed discount %(fixed)s does not match the calculated"
+                            "discount %(discount)s %%."
+                            "Please correct one of the discounts."
                         )
                         % {
                             "fixed": line.discount_fixed,
@@ -44,7 +46,7 @@ class SaleOrderLine(models.Model):
                         }
                     )
 
-    def _convert_to_tax_base_line_dict(self):
+    def _convert_to_tax_base_line_dict(self, **kwargs):
         """Prior to calculating the tax toals for a line, update the discount value
         used in the tax calculation to the full float value. Otherwise, we get rounding
         errors in the resulting calculated totals.
@@ -71,16 +73,19 @@ class SaleOrderLine(models.Model):
                 quantity=self.product_uom_qty,
                 discount=self._get_discount_from_fixed_discount(),
                 price_subtotal=self.price_subtotal,
+                **kwargs,
             )
 
         return super()._convert_to_tax_base_line_dict()
 
-    @api.onchange("discount_fixed", "price_unit")
-    def _onchange_discount_fixed(self):
-        if not self.discount_fixed:
-            return
-
-        self.discount = self._get_discount_from_fixed_discount()
+    @api.depends("discount_fixed", "price_unit")
+    def _compute_discount(self):
+        lines_with_discount_fixed = self.filtered(lambda sol: sol.discount_fixed)
+        for line in lines_with_discount_fixed:
+            line.discount = line._get_discount_from_fixed_discount()
+        return super(
+            SaleOrderLine, self - lines_with_discount_fixed
+        )._compute_discount()
 
     def _get_discount_from_fixed_discount(self):
         """Calculate the discount percentage from the fixed discount amount."""

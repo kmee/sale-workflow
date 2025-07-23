@@ -22,8 +22,8 @@ msgstr ""
 #. module: sale_exception
 #: model_terms:ir.ui.view,arch_db:sale_exception.view_order_form
 msgid ""
-"<strong>There are exceptions blocking the confirmation of this Sale Order:</"
-"strong>"
+"<strong>There are exceptions blocking the confirmation of this Sale "
+"Order:</strong>"
 msgstr ""
 "<strong>C'è un'eccezione che blocca la conferma di questo ordine di "
 "vendita:</strong>"
@@ -255,6 +255,3 @@ msgstr "Il prodotto ha un avviso nel suo modulo"
 #: model:exception.rule,description:sale_exception.excep_no_free
 msgid "The total can't be 0"
 msgstr "Il totale non può essere zero"
-
-#~ msgid "Quotation"
-#~ msgstr "Quotation"

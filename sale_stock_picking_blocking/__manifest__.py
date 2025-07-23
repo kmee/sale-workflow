@@ -1,11 +1,11 @@
-# Copyright 2019 ForgeFlow S.L.
+# Copyright 2024 ForgeFlow S.L.
 #   (http://www.forgeflow.com)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
     "name": "Sale Stock Picking Blocking",
     "summary": "Allow you to block the creation of deliveries from a sale order.",
-    "version": "16.0.1.2.0",
+    "version": "17.0.1.1.1",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/sale-workflow",
     "category": "Sales",

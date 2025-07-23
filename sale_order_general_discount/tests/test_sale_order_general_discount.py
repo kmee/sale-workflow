@@ -9,6 +9,9 @@ class TestSaleOrderLineInput(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(
+            context=dict(cls.env.context, test_sale_order_general_discount=True)
+        )
         cls.partner = cls.env["res.partner"].create(
             {"name": "Test", "sale_discount": 10.0}
         )
@@ -21,6 +24,16 @@ class TestSaleOrderLineInput(TransactionCase):
         )
         cls.product = cls.env["product.product"].create(
             {"name": "test_product", "type": "service"}
+        )
+        cls.pricelist = cls.env["product.pricelist"].create(
+            {"name": "Public Pricelist", "sequence": 1}
+        )
+        cls.product2 = cls.env["product.product"].create(
+            {
+                "name": "test product without general discount",
+                "type": "service",
+                "bypass_general_discount": True,
+            }
         )
         cls.order = cls.env["sale.order"].create(
             {
@@ -36,9 +49,20 @@ class TestSaleOrderLineInput(TransactionCase):
                             "product_uom": cls.product.uom_id.id,
                             "price_unit": 1000.00,
                         },
-                    )
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "name": cls.product2.name,
+                            "product_id": cls.product2.id,
+                            "product_uom_qty": 1,
+                            "product_uom": cls.product2.uom_id.id,
+                            "price_unit": 1000.00,
+                        },
+                    ),
                 ],
-                "pricelist_id": cls.env.ref("product.list0").id,
+                "pricelist_id": cls.pricelist.id,
             }
         )
         cls.contact_order = cls.env["sale.order"].create(
@@ -57,7 +81,7 @@ class TestSaleOrderLineInput(TransactionCase):
                         },
                     )
                 ],
-                "pricelist_id": cls.env.ref("product.list0").id,
+                "pricelist_id": cls.pricelist.id,
             }
         )
         cls.View = cls.env["ir.ui.view"]
@@ -72,7 +96,8 @@ class TestSaleOrderLineInput(TransactionCase):
 
     def test_sale_order_values(self):
         self.order.general_discount = 10
-        self.assertEqual(self.order.order_line.price_reduce, 900.00)
+        self.assertEqual(self.order.order_line[0].price_subtotal, 900.00)
+        self.assertEqual(self.order.order_line[1].price_subtotal, 1000.00)
 
     def _get_ctx_from_view(self, res):
         order_xml = etree.XML(res["arch"])
@@ -81,7 +106,6 @@ class TestSaleOrderLineInput(TransactionCase):
         return order_line_field.attrib.get("context", "{}")
 
     def test_default_line_discount_value(self):
-
         res = self.order.get_view(
             view_id=self.env.ref(
                 "sale_order_general_discount." "sale_order_general_discount_form_view"
@@ -96,11 +120,11 @@ class TestSaleOrderLineInput(TransactionCase):
                 "type": "form",
                 "model": "sale.order",
                 "arch": """
-                <data>
+                <form>
                     <field name='order_line'
                         context="{'default_product_uom_qty': 3.0}">
                     </field>
-                </data>
+                </form>
             """,
             }
         )
@@ -125,3 +149,27 @@ class TestSaleOrderLineInput(TransactionCase):
         order_line2 = self.env["sale.order.line"].create(vals)
         self.assertEqual(order_line2.price_subtotal, 800.00)
         self.assertEqual(order_line2.discount, 20)
+
+    def test_compute_discount(self):
+        self.order.general_discount = 10
+        self.assertEqual(self.order.order_line[0].discount, 10)
+        self.assertEqual(self.order.order_line[1].discount, 0)
+        self.order.order_line[0].discount = 1
+        self.order.order_line[1].discount = 2
+        self.order.order_line._compute_discount()
+        self.assertEqual(self.order.order_line[0].discount, 10)
+        self.assertEqual(self.order.order_line[1].discount, 0)
+
+    def test_product_template(self):
+        self.assertFalse(self.product.product_tmpl_id.bypass_general_discount)
+        self.assertTrue(self.product2.product_tmpl_id.bypass_general_discount)
+        self.product.product_tmpl_id.bypass_general_discount = True
+        self.assertTrue(self.product.bypass_general_discount)
+
+    def test_search_product_template_per_bypass_general_discount(self):
+        self.assertEqual(
+            self.env["product.template"]
+            .search([("bypass_general_discount", "=", True)])
+            .id,
+            self.product2.product_tmpl_id.id,
+        )

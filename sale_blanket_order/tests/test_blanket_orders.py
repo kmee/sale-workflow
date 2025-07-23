@@ -63,6 +63,9 @@ class TestSaleBlanketOrders(common.TransactionCase):
 
         cls.yesterday = date.today() - timedelta(days=1)
         cls.tomorrow = date.today() + timedelta(days=1)
+        cls.analytic_distribution = {
+            str(cls.env.ref("analytic.analytic_internal").id): 100,
+        }
 
     def test_01_create_blanket_order(self):
         """We create a blanket order and check constrains to confirm BO"""
@@ -73,9 +76,7 @@ class TestSaleBlanketOrders(common.TransactionCase):
                 "payment_term_id": self.payment_term.id,
                 "pricelist_id": self.sale_pricelist.id,
                 "line_ids": [
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "product_id": self.product.id,
                             "product_uom": self.product.uom_id.id,
@@ -83,9 +84,7 @@ class TestSaleBlanketOrders(common.TransactionCase):
                             "price_unit": 0.0,  # will be updated later
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "name": "My section",
                             "display_type": "line_section",
@@ -99,7 +98,7 @@ class TestSaleBlanketOrders(common.TransactionCase):
         blanket_order.line_ids[0].sudo().onchange_product()
         blanket_order.pricelist_id.discount_policy = "with_discount"
         blanket_order.line_ids[0].sudo().onchange_product()
-        blanket_order.line_ids[0].sudo()._get_display_price(self.product)
+        blanket_order.line_ids[0].sudo()._get_display_price()
 
         self.assertEqual(blanket_order.state, "draft")
 
@@ -128,9 +127,7 @@ class TestSaleBlanketOrders(common.TransactionCase):
                 "payment_term_id": self.payment_term.id,
                 "pricelist_id": self.sale_pricelist.id,
                 "line_ids": [
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "product_id": False,
                             "product_uom": False,
@@ -138,10 +135,9 @@ class TestSaleBlanketOrders(common.TransactionCase):
                             "display_type": "line_section",
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
+                            "analytic_distribution": self.analytic_distribution,
                             "product_id": self.product.id,
                             "product_uom": self.product.uom_id.id,
                             "original_uom_qty": 20.0,
@@ -178,6 +174,12 @@ class TestSaleBlanketOrders(common.TransactionCase):
         for so in sos:
             self.assertEqual(so.origin, blanket_order.name)
 
+        # Analytic distribution is propagated to the sale line
+        self.assertEqual(
+            sos[0].order_line.filtered("product_id").analytic_distribution,
+            self.analytic_distribution,
+        )
+
     def test_03_create_sale_orders_from_blanket_order_line(self):
         """We create a blanket order and create two sale orders
         from the blanket order lines"""
@@ -188,9 +190,7 @@ class TestSaleBlanketOrders(common.TransactionCase):
                 "payment_term_id": self.payment_term.id,
                 "pricelist_id": self.sale_pricelist.id,
                 "line_ids": [
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "product_id": self.product.id,
                             "product_uom": self.product.uom_id.id,
@@ -198,9 +198,7 @@ class TestSaleBlanketOrders(common.TransactionCase):
                             "price_unit": 30.0,
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "product_id": self.product2.id,
                             "product_uom": self.product2.uom_id.id,
@@ -239,9 +237,7 @@ class TestSaleBlanketOrders(common.TransactionCase):
                 "pricelist_id": self.sale_pricelist.id,
                 "currency_id": self.sale_pricelist.currency_id.id,
                 "line_ids": [
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "product_id": self.product.id,
                             "product_uom": self.product.uom_id.id,
@@ -249,9 +245,7 @@ class TestSaleBlanketOrders(common.TransactionCase):
                             "price_unit": 30.0,
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "product_id": self.product2.id,
                             "product_uom": self.product2.uom_id.id,
@@ -273,9 +267,7 @@ class TestSaleBlanketOrders(common.TransactionCase):
                 "payment_term_id": self.payment_term.id,
                 "pricelist_id": self.sale_pricelist.id,
                 "order_line": [
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "product_id": self.product.id,
                             "product_uom": self.product.uom_id.id,
@@ -283,9 +275,7 @@ class TestSaleBlanketOrders(common.TransactionCase):
                             "price_unit": 30.0,
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "product_id": self.product2.id,
                             "product_uom": self.product2.uom_id.id,
@@ -310,9 +300,7 @@ class TestSaleBlanketOrders(common.TransactionCase):
                 "payment_term_id": self.payment_term.id,
                 "pricelist_id": self.sale_pricelist.id,
                 "line_ids": [
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "product_id": self.product.id,
                             "product_uom": self.uom_dozen.id,
@@ -332,9 +320,7 @@ class TestSaleBlanketOrders(common.TransactionCase):
                 "payment_term_id": self.payment_term.id,
                 "pricelist_id": self.sale_pricelist.id,
                 "order_line": [
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "product_id": self.product.id,
                             "product_uom": self.product.uom_id.id,
@@ -361,9 +347,7 @@ class TestSaleBlanketOrders(common.TransactionCase):
                 "payment_term_id": self.payment_term.id,
                 "pricelist_id": self.sale_pricelist.id,
                 "line_ids": [
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "product_id": self.product.id,
                             "product_uom": self.product.uom_id.id,
@@ -371,9 +355,7 @@ class TestSaleBlanketOrders(common.TransactionCase):
                             "price_unit": 30.0,
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "product_id": self.product2.id,
                             "product_uom": self.product2.uom_id.id,
@@ -390,10 +372,10 @@ class TestSaleBlanketOrders(common.TransactionCase):
         wizard1 = self.blanket_order_wiz_obj.with_context(
             active_id=blanket_order.id, active_model="sale.blanket.order"
         ).create({})
-        wizard1.line_ids.filtered(lambda l: l.product_id == self.product).write(
+        wizard1.line_ids.filtered(lambda line: line.product_id == self.product).write(
             {"qty": 10.0}
         )
-        wizard1.line_ids.filtered(lambda l: l.product_id == self.product2).write(
+        wizard1.line_ids.filtered(lambda line: line.product_id == self.product2).write(
             {"qty": 10.0}
         )
         wizard1.sudo().create_sale_order()
@@ -401,10 +383,10 @@ class TestSaleBlanketOrders(common.TransactionCase):
         wizard2 = self.blanket_order_wiz_obj.with_context(
             active_id=blanket_order.id, active_model="sale.blanket.order"
         ).create({})
-        wizard2.line_ids.filtered(lambda l: l.product_id == self.product).write(
+        wizard2.line_ids.filtered(lambda line: line.product_id == self.product).write(
             {"qty": 20.0}
         )
-        wizard2.line_ids.filtered(lambda l: l.product_id == self.product2).write(
+        wizard2.line_ids.filtered(lambda line: line.product_id == self.product2).write(
             {"qty": 0}
         )
         wizard2.sudo().create_sale_order()
@@ -412,7 +394,7 @@ class TestSaleBlanketOrders(common.TransactionCase):
         wizard3 = self.blanket_order_wiz_obj.with_context(
             active_id=blanket_order.id, active_model="sale.blanket.order"
         ).create({})
-        wizard3.line_ids.filtered(lambda l: l.product_id == self.product2).write(
+        wizard3.line_ids.filtered(lambda line: line.product_id == self.product2).write(
             {"qty": 10.0}
         )
         wizard3.sudo().create_sale_order()

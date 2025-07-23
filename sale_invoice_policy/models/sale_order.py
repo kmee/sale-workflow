@@ -5,13 +5,11 @@ from odoo import api, fields, models
 
 
 class SaleOrder(models.Model):
-
     _inherit = "sale.order"
 
     invoice_policy = fields.Selection(
         [("order", "Ordered quantities"), ("delivery", "Delivered quantities")],
         readonly=True,
-        states={"draft": [("readonly", False)], "sent": [("readonly", False)]},
         help="Ordered Quantity: Invoice based on the quantity the customer "
         "ordered.\n"
         "Delivered Quantity: Invoiced based on the quantity the vendor "
@@ -19,7 +17,7 @@ class SaleOrder(models.Model):
     )
     invoice_policy_required = fields.Boolean(
         compute="_compute_invoice_policy_required",
-        default=lambda self: self.env["ir.default"].get(
+        default=lambda self: self.env["ir.default"]._get(
             "res.config.settings", "sale_invoice_policy_required"
         ),
     )

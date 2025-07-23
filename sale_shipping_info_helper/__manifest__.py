@@ -1,4 +1,4 @@
-# Copyright 2017-To Day Akretion
+# Copyright 2017-2024 Akretion
 # @author Sébastien BEAU <sebastien.beau@akretion.com>
 # @author: Mourad EL HADJ MIMOUNE <mourad.elhadj.mimoune@akretion.com>
 

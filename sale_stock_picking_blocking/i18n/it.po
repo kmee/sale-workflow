@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-31 04:21+0000\n"
-"PO-Revision-Date: 2024-06-24 13:35+0000\n"
+"PO-Revision-Date: 2024-06-24 13:40+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -88,11 +88,6 @@ msgid "ID"
 msgstr "ID"
 
 #. module: sale_stock_picking_blocking
-#: model:ir.model.fields,field_description:sale_stock_picking_blocking.field_sale_delivery_block_reason____last_update
-msgid "Last Modified on"
-msgstr "Ultima modifica il"
-
-#. module: sale_stock_picking_blocking
 #: model:ir.model.fields,field_description:sale_stock_picking_blocking.field_sale_delivery_block_reason__write_uid
 msgid "Last Updated by"
 msgstr "Ultimo aggiornamento di"
@@ -131,7 +126,7 @@ msgstr "Motivo blocco consegna vendita"
 #. module: sale_stock_picking_blocking
 #: model:ir.model.fields,field_description:sale_stock_picking_blocking.field_sale_delivery_block_reason__sale_order_ids
 msgid "Sale Orders"
-msgstr "Ordini di vendita"
+msgstr "Ordine vendita"
 
 #. module: sale_stock_picking_blocking
 #: model:ir.model,name:sale_stock_picking_blocking.model_sale_order
@@ -166,6 +161,9 @@ msgstr ""
 #~ msgid "You cannot block a sale order with \"auto_done_setting\" active."
 #~ msgstr ""
 #~ "Non si può bloccare un ordine di vendita con \"auto_done_setting\" attivo."
+
+#~ msgid "Last Modified on"
+#~ msgstr "Ultima modifica il"
 
 #, fuzzy
 #~| msgid "Sale Orders"

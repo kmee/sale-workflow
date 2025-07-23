@@ -56,7 +56,6 @@ class TestSaleStock(TestSaleCommonBase):
                         },
                     )
                 ],
-                "pricelist_id": self.env.ref("product.list0").id,
                 "manual_delivery": True,
             }
         )
@@ -110,7 +109,6 @@ class TestSaleStock(TestSaleCommonBase):
                         },
                     )
                 ],
-                "pricelist_id": self.env.ref("product.list0").id,
                 "manual_delivery": False,
             }
         )
@@ -123,7 +121,7 @@ class TestSaleStock(TestSaleCommonBase):
         # deliver completely
         pick = order.picking_ids
         pick.action_assign()
-        pick.move_line_ids.write({"qty_done": 5})
+        pick.move_line_ids.write({"quantity": 5})
         pick.button_validate()
         # Check quantity delivered
         del_qty = sum(sol.qty_delivered for sol in order.order_line)
@@ -151,7 +149,6 @@ class TestSaleStock(TestSaleCommonBase):
                         },
                     )
                 ],
-                "pricelist_id": self.env.ref("product.list0").id,
                 "manual_delivery": True,
             }
         )
@@ -165,6 +162,8 @@ class TestSaleStock(TestSaleCommonBase):
         wizard = self._manual_delivery_wizard(order)
         wizard.line_ids.write({"quantity": 2.0})
         wizard.confirm()
+        # checking has_pending_delivery for Create Delivery button to appear
+        self.assertTrue(order.has_pending_delivery)
         # check picking is created
         self.assertEqual(
             len(order.picking_ids),
@@ -174,7 +173,7 @@ class TestSaleStock(TestSaleCommonBase):
         # deliver completely
         pick = order.picking_ids
         pick.action_assign()
-        pick.move_line_ids.write({"qty_done": 2})
+        pick.move_line_ids.write({"quantity": 2})
         pick.button_validate()
         # Check quantity delivered
         del_qty = sum(sol.qty_delivered for sol in order.order_line)
@@ -197,6 +196,8 @@ class TestSaleStock(TestSaleCommonBase):
         wizard = self._manual_delivery_wizard(order)
         wizard.line_ids.write({"quantity": 3.0})
         wizard.confirm()
+        # checking has_pending_delivery for Create Delivery button to hide
+        self.assertFalse(order.has_pending_delivery)
         self.assertEqual(
             len(order.picking_ids),
             2.0,
@@ -225,7 +226,6 @@ class TestSaleStock(TestSaleCommonBase):
                         },
                     )
                 ],
-                "pricelist_id": self.env.ref("product.list0").id,
                 "manual_delivery": True,
             }
         )
@@ -247,7 +247,6 @@ class TestSaleStock(TestSaleCommonBase):
                         },
                     )
                 ],
-                "pricelist_id": self.env.ref("product.list0").id,
                 "manual_delivery": True,
             }
         )
@@ -269,7 +268,6 @@ class TestSaleStock(TestSaleCommonBase):
                         },
                     )
                 ],
-                "pricelist_id": self.env.ref("product.list0").id,
                 "manual_delivery": True,
             }
         )
@@ -344,7 +342,6 @@ class TestSaleStock(TestSaleCommonBase):
                         },
                     ),
                 ],
-                "pricelist_id": self.env.ref("product.list0").id,
                 "manual_delivery": True,
             }
         )
@@ -449,7 +446,6 @@ class TestSaleStock(TestSaleCommonBase):
                         },
                     ),
                 ],
-                "pricelist_id": self.env.ref("product.list0").id,
                 "manual_delivery": True,
             }
         )
@@ -481,7 +477,6 @@ class TestSaleStock(TestSaleCommonBase):
                         },
                     ),
                 ],
-                "pricelist_id": self.env.ref("product.list0").id,
                 "manual_delivery": True,
                 "carrier_id": self.carrier1.id,
             }

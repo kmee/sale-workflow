@@ -49,7 +49,7 @@ class SaleInvoicePaymentWiz(models.TransientModel):
 
     @api.model
     def default_get(self, fields_list):
-        res = super(SaleInvoicePaymentWiz, self).default_get(fields_list)
+        res = super().default_get(fields_list)
         invoice_ids = self.env.context.get("invoice_ids")
         res["journal_id"] = self.env.user.commercial_journal_ids[:1].id
         if (
@@ -152,7 +152,7 @@ class SaleInvoicePaymentLineWiz(models.TransientModel):
     _name = "sale.invoice.payment.line.wiz"
     _description = "Sale invoice payment lines wizard"
 
-    wiz_id = fields.Many2one("sale.invoice.payment.wiz")
+    wiz_id = fields.Many2one("sale.invoice.payment.wiz", ondelete="cascade")
     is_selected = fields.Boolean(default=True)
     invoice_id = fields.Many2one("account.move")
     invoice_date = fields.Date(related="invoice_id.invoice_date")

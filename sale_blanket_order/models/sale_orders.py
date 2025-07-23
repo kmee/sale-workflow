@@ -13,10 +13,7 @@ class SaleOrder(models.Model):
     blanket_order_id = fields.Many2one(
         "sale.blanket.order",
         string="Origin blanket order",
-        compute="_compute_blanket_order_id",
-    )
-    disable_adding_lines = fields.Boolean(
-        compute="_compute_disable_adding_lines",
+        related="order_line.blanket_order_line.order_id",
     )
 
     @api.model
@@ -50,22 +47,6 @@ class SaleOrder(models.Model):
                         )
                     )
 
-    @api.depends("order_line.blanket_order_line.order_id")
-    def _compute_blanket_order_id(self):
-        for order in self:
-            blanket_order = order.order_line.mapped("blanket_order_line.order_id")
-            order.blanket_order_id = blanket_order[:1]
-
-    @api.depends("blanket_order_id")
-    @api.depends_context("uid")
-    def _compute_disable_adding_lines(self):
-        self.disable_adding_lines = False
-        if self.env.user.has_group(
-            "sale_blanket_order.blanket_orders_disable_adding_lines"
-        ):
-            for order in self:
-                order.disable_adding_lines = order.blanket_order_id
-
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
@@ -80,14 +61,14 @@ class SaleOrderLine(models.Model):
         assigned_bo_line = False
         date_planned = date.today()
         date_delta = timedelta(days=365)
-        for line in bo_lines.filtered(lambda l: l.date_schedule):
+        for line in bo_lines.filtered(lambda bo_line: bo_line.date_schedule):
             date_schedule = line.date_schedule
             if date_schedule and abs(date_schedule - date_planned) < date_delta:
                 assigned_bo_line = line
                 date_delta = abs(date_schedule - date_planned)
         if assigned_bo_line:
             return assigned_bo_line
-        non_date_bo_lines = bo_lines.filtered(lambda l: not l.date_schedule)
+        non_date_bo_lines = bo_lines.filtered(lambda bo_line: not bo_line.date_schedule)
         if non_date_bo_lines:
             return non_date_bo_lines[0]
 

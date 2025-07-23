@@ -6,20 +6,20 @@ from odoo.tools import float_compare
 
 
 class SaleOrder(models.Model):
-
     _inherit = "sale.order"
 
     account_payment_ids = fields.One2many(
-        "account.payment", "sale_id", string="Pay sale advanced", readonly=True
+        comodel_name="account.payment",
+        inverse_name="sale_id",
+        string="Pay sale advanced",
     )
     amount_residual = fields.Float(
-        "Residual amount",
-        readonly=True,
+        string="Residual amount",
         compute="_compute_advance_payment",
         store=True,
     )
     payment_line_ids = fields.Many2many(
-        "account.move.line",
+        comodel_name="account.move.line",
         string="Payment move lines",
         compute="_compute_advance_payment",
         store=True,
@@ -31,7 +31,6 @@ class SaleOrder(models.Model):
             ("partial", "Partially Paid"),
         ],
         store=True,
-        readonly=True,
         copy=False,
         tracking=True,
         compute="_compute_advance_payment",
@@ -82,7 +81,9 @@ class SaleOrder(models.Model):
             # Consider payments in related invoices.
             invoice_paid_amount = 0.0
             for inv in order.invoice_ids:
-                invoice_paid_amount += inv.amount_total - inv.amount_residual
+                invoice_paid_amount += (
+                    inv.amount_total_signed - inv.amount_residual_signed
+                )
             amount_residual = order.amount_total - advance_amount - invoice_paid_amount
             payment_state = "not_paid"
             if mls:

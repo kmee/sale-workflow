@@ -9,6 +9,7 @@ from odoo import api, models
 class SaleOrder(models.Model):
     _inherit = ["sale.order", "base.exception"]
     _name = "sale.order"
+    _order = "main_exception_id asc, date_order desc, name desc"
 
     @api.model
     def _reverse_field(self):
@@ -64,8 +65,3 @@ class SaleOrder(models.Model):
     @api.model
     def _get_popup_action(self):
         return self.env.ref("sale_exception.action_sale_exception_confirm")
-
-    def action_unlock(self):
-        return super(
-            SaleOrder, self.with_context(check_exception=False)
-        ).action_unlock()

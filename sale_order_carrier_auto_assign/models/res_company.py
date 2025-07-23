@@ -7,7 +7,9 @@ from odoo import fields, models
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    # Migration note 17.0: rename field to sale_auto_assign_carrier_on_confirm
-    # and integrate sale_auto_assign_carier_on_create from
-    # delivery_auto_refresh module in OCA/delivery-carrier
-    carrier_auto_assign = fields.Boolean()
+    carrier_auto_assign = fields.Boolean(
+        help="Enable carrier auto assign on sale order confirmation.",
+    )
+    carrier_on_create = fields.Boolean(
+        help="On the sales quotation, add the shipping method on creation.",
+    )

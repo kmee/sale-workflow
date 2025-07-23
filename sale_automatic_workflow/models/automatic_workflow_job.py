@@ -40,9 +40,9 @@ class AutomaticWorkflowJob(models.Model):
         if not self.env["sale.order"].search_count(
             [("id", "=", sale.id)] + domain_filter
         ):
-            return "{} {} job bypassed".format(sale.display_name, sale)
+            return f"{sale.display_name} {sale} job bypassed"
         sale.action_confirm()
-        return "{} {} confirmed successfully".format(sale.display_name, sale)
+        return f"{sale.display_name} {sale} confirmed successfully"
 
     def _do_send_order_confirmation_mail(self, sale):
         """Send order confirmation mail, while filtering to make sure the order is
@@ -50,13 +50,11 @@ class AutomaticWorkflowJob(models.Model):
         if not self.env["sale.order"].search_count(
             [("id", "=", sale.id), ("state", "=", "sale")]
         ):
-            return "{} {} job bypassed".format(sale.display_name, sale)
+            return f"{sale.display_name} {sale} job bypassed"
         if sale.user_id:
             sale = sale.with_user(sale.user_id)
         sale._send_order_confirmation_mail()
-        return "{} {} send order confirmation mail successfully".format(
-            sale.display_name, sale
-        )
+        return f"{sale.display_name} {sale} send order confirmation mail successfully"
 
     @api.model
     def _validate_sale_orders(self, order_filter):
@@ -76,12 +74,12 @@ class AutomaticWorkflowJob(models.Model):
         if not self.env["sale.order"].search_count(
             [("id", "=", sale.id)] + domain_filter
         ):
-            return "{} {} job bypassed".format(sale.display_name, sale)
+            return f"{sale.display_name} {sale} job bypassed"
         payment = self.env["sale.advance.payment.inv"].create(
             {"sale_order_ids": sale.ids}
         )
         payment.with_context(active_model="sale.order").create_invoices()
-        return "{} {} create invoice successfully".format(sale.display_name, sale)
+        return f"{sale.display_name} {sale} create invoice successfully"
 
     @api.model
     def _create_invoices(self, create_filter):
@@ -99,11 +97,9 @@ class AutomaticWorkflowJob(models.Model):
         if not self.env["account.move"].search_count(
             [("id", "=", invoice.id)] + domain_filter
         ):
-            return "{} {} job bypassed".format(invoice.display_name, invoice)
+            return f"{invoice.display_name} {invoice} job bypassed"
         invoice.with_company(invoice.company_id).action_post()
-        return "{} {} validate invoice successfully".format(
-            invoice.display_name, invoice
-        )
+        return f"{invoice.display_name} {invoice} validate invoice successfully"
 
     @api.model
     def _validate_invoices(self, validate_invoice_filter):
@@ -116,85 +112,18 @@ class AutomaticWorkflowJob(models.Model):
                     invoice.with_company(invoice.company_id), validate_invoice_filter
                 )
 
-    def _do_send_invoice(self, invoice, domain_filter):
-        """Validate an invoice, filter ensure no duplication"""
-        if not self.env["account.move"].search_count(
-            [("id", "=", invoice.id)] + domain_filter
-        ):
-            return "{} {} job bypassed".format(invoice.display_name, invoice)
-
-        # take the context from the actual action_invoice_sent method
-        action = invoice.action_invoice_sent()
-        action_context = action["context"]
-
-        # Create the email using the wizard
-        invoice_send_wizard = (
-            self.env["account.invoice.send"]
-            .with_context(
-                action_context,
-                mark_invoice_as_sent=True,
-                active_ids=[invoice.id],
-                force_email=True,
-            )
-            .create(
-                {
-                    "is_print": False,
-                    "composition_mode": "comment",
-                    "model": "account.move",
-                    "res_id": invoice.id,
-                }
-            )
-        )
-
-        invoice_send_wizard.onchange_is_email()
-        invoice_send_wizard._send_email()
-
-        return "{} {} sent invoice successfully".format(invoice.display_name, invoice)
-
-    @api.model
-    def _send_invoices(self, send_invoice_filter):
-        move_obj = self.env["account.move"]
-        invoices = move_obj.search(send_invoice_filter)
-        _logger.debug("Invoices to send: %s", invoices.ids)
-        for invoice in invoices:
-            with savepoint(self.env.cr):
-                self._do_send_invoice(
-                    invoice.with_company(invoice.company_id), send_invoice_filter
-                )
-
-    def _do_validate_picking(self, picking, domain_filter):
-        """Validate a stock.picking, filter ensure no duplication"""
-        if not self.env["stock.picking"].search_count(
-            [("id", "=", picking.id)] + domain_filter
-        ):
-            return "{} {} job bypassed".format(picking.display_name, picking)
-        picking.validate_picking()
-        return "{} {} validate picking successfully".format(
-            picking.display_name, picking
-        )
-
-    @api.model
-    def _validate_pickings(self, picking_filter):
-        picking_obj = self.env["stock.picking"]
-        pickings = picking_obj.search(picking_filter)
-        _logger.debug("Pickings to validate: %s", pickings.ids)
-        for picking in pickings:
-            with savepoint(self.env.cr):
-                self._do_validate_picking(picking, picking_filter)
-
     def _do_sale_done(self, sale, domain_filter):
-        """Set a sales order to done, filter ensure no duplication"""
+        """Lock a sales order, filter ensure no duplication"""
         if not self.env["sale.order"].search_count(
             [("id", "=", sale.id)] + domain_filter
         ):
-            return "{} {} job bypassed".format(sale.display_name, sale)
-        sale.action_done()
-        return "{} {} set done successfully".format(sale.display_name, sale)
+            return f"{sale.display_name} {sale} job bypassed"
+        sale.action_lock()
+        return f"{sale.display_name} {sale} locked successfully"
 
     @api.model
     def _sale_done(self, sale_done_filter):
-        sale_obj = self.env["sale.order"]
-        sales = sale_obj.search(sale_done_filter)
+        sales = self.env["sale.order"].search(sale_done_filter)
         _logger.debug("Sale Orders to done: %s", sales.ids)
         for sale in sales:
             with savepoint(self.env.cr):
@@ -212,6 +141,7 @@ class AutomaticWorkflowJob(models.Model):
             "partner_id": invoice.partner_id.id,
             "partner_type": partner_type,
             "date": fields.Date.context_today(self),
+            "currency_id": invoice.currency_id.id,
         }
 
     @api.model
@@ -240,6 +170,11 @@ class AutomaticWorkflowJob(models.Model):
             (payment_lines + lines).filtered_domain(
                 [("account_id", "=", account.id), ("reconciled", "=", False)]
             ).reconcile()
+        return payment
+
+    @api.model
+    def _handle_pickings(self, sale_workflow):
+        pass
 
     @api.model
     def run_with_workflow(self, sale_workflow):
@@ -250,10 +185,7 @@ class AutomaticWorkflowJob(models.Model):
             )._validate_sale_orders(
                 safe_eval(sale_workflow.order_filter_id.domain) + workflow_domain
             )
-        if sale_workflow.validate_picking:
-            self._validate_pickings(
-                safe_eval(sale_workflow.picking_filter_id.domain) + workflow_domain
-            )
+        self._handle_pickings(sale_workflow)
         if sale_workflow.create_invoice:
             self._create_invoices(
                 safe_eval(sale_workflow.create_invoice_filter_id.domain)
@@ -263,10 +195,6 @@ class AutomaticWorkflowJob(models.Model):
             self._validate_invoices(
                 safe_eval(sale_workflow.validate_invoice_filter_id.domain)
                 + workflow_domain
-            )
-        if sale_workflow.send_invoice:
-            self._send_invoices(
-                safe_eval(sale_workflow.send_invoice_filter_id.domain) + workflow_domain
             )
         if sale_workflow.sale_done:
             self._sale_done(

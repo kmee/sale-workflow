@@ -52,9 +52,7 @@ class TestSaleOrder(common.TransactionCase):
                 "payment_term_id": self.payment_term.id,
                 "pricelist_id": self.sale_pricelist.id,
                 "line_ids": [
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "product_id": self.product.id,
                             "product_uom": self.product.uom_id.id,
@@ -65,9 +63,7 @@ class TestSaleOrder(common.TransactionCase):
                             "price_unit": 30.0,
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "product_id": self.product.id,
                             "product_uom": self.product.uom_id.id,
@@ -92,9 +88,7 @@ class TestSaleOrder(common.TransactionCase):
                 "payment_term_id": self.payment_term.id,
                 "pricelist_id": self.sale_pricelist.id,
                 "line_ids": [
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "product_id": self.product.id,
                             "product_uom": self.product.uom_id.id,
@@ -102,9 +96,7 @@ class TestSaleOrder(common.TransactionCase):
                             "price_unit": 30.0,
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "product_id": self.product_2.id,
                             "product_uom": self.product.uom_id.id,
@@ -130,9 +122,7 @@ class TestSaleOrder(common.TransactionCase):
             {
                 "partner_id": self.partner.id,
                 "order_line": [
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "name": self.product.name,
                             "product_id": self.product.id,
@@ -145,7 +135,6 @@ class TestSaleOrder(common.TransactionCase):
             }
         )
         so_line = so.order_line[0]
-        so_line.with_context(from_sale_order=True).name_get()
         so_line.onchange_product_id()
         self.assertEqual(so_line._get_eligible_bo_lines(), bo_lines)
         bo_line_assigned = self.blanket_order_line_obj.search(
@@ -165,9 +154,7 @@ class TestSaleOrder(common.TransactionCase):
             {
                 "partner_id": self.partner.id,
                 "order_line": [
-                    (
-                        0,
-                        0,
+                    fields.Command.create(
                         {
                             "name": self.product.name,
                             "product_id": self.product.id,
@@ -180,11 +167,10 @@ class TestSaleOrder(common.TransactionCase):
             }
         )
         so_line = so.order_line[0]
-        so_line.with_context(from_sale_order=True).name_get()
         so_line.onchange_product_id()
         self.assertEqual(
             so_line._get_eligible_bo_lines(),
-            bo_lines.filtered(lambda l: l.product_id == self.product),
+            bo_lines.filtered(lambda bo_line: bo_line.product_id == self.product),
         )
         bo_line_assigned = self.blanket_order_line_obj.search(
             [
@@ -194,62 +180,3 @@ class TestSaleOrder(common.TransactionCase):
             ]
         )
         self.assertEqual(so_line.blanket_order_line, bo_line_assigned)
-
-    def test_03_create_sale_order(self):
-        blanket_order = self.create_blanket_order_01()
-        blanket_order.sudo().action_confirm()
-        bo_lines = self.blanket_order_line_obj.search(
-            [("order_id", "=", blanket_order.id)]
-        )
-        self.assertEqual(len(bo_lines), 2)
-
-        so = self.sale_order_obj.create(
-            {
-                "partner_id": self.partner.id,
-                "order_line": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": self.product_2.name,
-                            "product_id": self.product_2.id,
-                            "product_uom_qty": 5.0,
-                            "product_uom": self.product_2.uom_po_id.id,
-                            "price_unit": 10.0,
-                        },
-                    ),
-                    (
-                        0,
-                        0,
-                        {
-                            "name": self.product.name,
-                            "product_id": self.product.id,
-                            "product_uom_qty": 5.0,
-                            "product_uom": self.product.uom_po_id.id,
-                            "price_unit": 10.0,
-                        },
-                    ),
-                ],
-            }
-        )
-        so_line_1 = so.order_line[0]
-        so_line_2 = so.order_line[1]
-        so_line_1.with_context(from_sale_order=True).name_get()
-        so_line_1.onchange_product_id()
-        self.assertFalse(so_line_1._get_eligible_bo_lines())
-        so_line_2.with_context(from_sale_order=True).name_get()
-        so_line_2.onchange_product_id()
-        self.assertEqual(
-            so_line_2._get_eligible_bo_lines(),
-            bo_lines.filtered(lambda l: l.product_id == self.product),
-        )
-        bo_line_assigned = self.blanket_order_line_obj.search(
-            [
-                ("order_id", "=", blanket_order.id),
-                ("product_id", "=", self.product.id),
-                ("date_schedule", "=", fields.Date.to_string(self.date_schedule_1)),
-            ]
-        )
-        self.assertFalse(so_line_1.blanket_order_line)
-        self.assertEqual(so_line_2.blanket_order_line, bo_line_assigned)
-        self.assertEqual(so.blanket_order_id, blanket_order)

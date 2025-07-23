@@ -140,22 +140,25 @@ msgid "An order can't be empty"
 msgstr "Un pedido no puede estar vacío"
 
 #. module: sale_blanket_order
-#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_line__analytic_distribution
-msgid "Analytic"
-msgstr ""
-
-#. module: sale_blanket_order
 #: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order__analytic_account_id
 msgid "Analytic Account"
 msgstr "Cuenta Analítica"
 
 #. module: sale_blanket_order
+#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_line__analytic_distribution
+#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_wizard_line__analytic_distribution
+msgid "Analytic Distribution"
+msgstr ""
+
+#. module: sale_blanket_order
 #: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_line__analytic_distribution_search
+#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_wizard_line__analytic_distribution_search
 msgid "Analytic Distribution Search"
 msgstr ""
 
 #. module: sale_blanket_order
 #: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_line__analytic_precision
+#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_wizard_line__analytic_precision
 msgid "Analytic Precision"
 msgstr ""
 
@@ -334,11 +337,6 @@ msgid "Description"
 msgstr "Descripción"
 
 #. module: sale_blanket_order
-#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_order__disable_adding_lines
-msgid "Disable Adding Lines"
-msgstr ""
-
-#. module: sale_blanket_order
 #: model:ir.model.fields,field_description:sale_blanket_order.field_res_config_settings__group_blanket_disable_adding_lines
 msgid "Disable adding more lines to SOs"
 msgstr "Desactivar añadir más líneas a Pedidos"
@@ -363,6 +361,12 @@ msgid "Display Type"
 msgstr "Mostrar Tipo"
 
 #. module: sale_blanket_order
+#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_line__distribution_analytic_account_ids
+#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_wizard_line__distribution_analytic_account_ids
+msgid "Distribution Analytic Account"
+msgstr ""
+
+#. module: sale_blanket_order
 #: model:ir.model.fields.selection,name:sale_blanket_order.selection__sale_blanket_order__state__done
 msgid "Done"
 msgstr "Hecho"
@@ -374,7 +378,6 @@ msgstr "Borrador"
 
 #. module: sale_blanket_order
 #: model:ir.actions.server,name:sale_blanket_order.expired_blanket_orders_cron_ir_actions_server
-#: model:ir.cron,cron_name:sale_blanket_order.expired_blanket_orders_cron
 msgid "Expire Blanket Orders"
 msgstr "Expirar Programaciones"
 
@@ -472,14 +475,6 @@ msgid "Is Follower"
 msgstr "Es seguidor"
 
 #. module: sale_blanket_order
-#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order____last_update
-#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_line____last_update
-#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_wizard____last_update
-#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_wizard_line____last_update
-msgid "Last Modified on"
-msgstr "Ultima modificación"
-
-#. module: sale_blanket_order
 #: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order__write_uid
 #: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_line__write_uid
 #: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_wizard__write_uid
@@ -500,12 +495,6 @@ msgstr "Ultima actualización"
 #: model_terms:ir.ui.view,arch_db:sale_blanket_order.view_blanket_order_form
 msgid "Lines"
 msgstr "Líneas"
-
-#. module: sale_blanket_order
-#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order__message_main_attachment_id
-#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_line__message_main_attachment_id
-msgid "Main Attachment"
-msgstr "Adjunto principal"
 
 #. module: sale_blanket_order
 #: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order__message_has_error
@@ -690,6 +679,11 @@ msgid "Pricelist"
 msgstr "Tarifa"
 
 #. module: sale_blanket_order
+#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_line__pricelist_item_id
+msgid "Pricelist Item"
+msgstr ""
+
+#. module: sale_blanket_order
 #: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order__product_id
 #: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_line__product_id
 #: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_wizard_line__product_id
@@ -713,6 +707,12 @@ msgstr "La cantidad debe ser mayor que cero"
 #: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_wizard_line__qty
 msgid "Quantity to Order"
 msgstr "Cantidad pedida"
+
+#. module: sale_blanket_order
+#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order__rating_ids
+#: model:ir.model.fields,field_description:sale_blanket_order.field_sale_blanket_order_line__rating_ids
+msgid "Ratings"
+msgstr ""
 
 #. module: sale_blanket_order
 #: model_terms:ir.ui.view,arch_db:sale_blanket_order.view_blanket_order_search
@@ -1065,6 +1065,12 @@ msgstr "restante"
 
 #~ msgid "Analytic Tags"
 #~ msgstr "Etiquetas Analíticas"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Ultima modificación"
+
+#~ msgid "Main Attachment"
+#~ msgstr "Adjunto principal"
 
 #~ msgid "Number of messages which requires an action"
 #~ msgstr "Número de mensajes que requieren una acción"

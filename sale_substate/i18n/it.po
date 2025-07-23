@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-02-21 18:06+0000\n"
+"PO-Revision-Date: 2025-02-17 17:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -187,17 +187,6 @@ msgid "Substate"
 msgstr "Substato"
 
 #. module: sale_substate
-#. odoo-python
-#: code:addons/sale_substate/models/sale_order.py:0
-#, python-format
-msgid ""
-"The substate %(name)s is not defined for the state %(state)s but for "
-"%(target_state)s "
-msgstr ""
-"Il substato %(name)s non è definito per lo stato %(state)s ma per "
-"%(target_state)s "
-
-#. module: sale_substate
 #: model:base.substate,name:sale_substate.base_substate_valid_docs
 msgid "To validate legal documents"
 msgstr "Documenti legali da validare"
@@ -212,3 +201,11 @@ msgstr "Attesa documenti legali"
 #: model:base.substate,name:sale_substate.base_substate_won
 msgid "Won"
 msgstr "Vinta"
+
+#, python-format
+#~ msgid ""
+#~ "The substate %(name)s is not defined for the state %(state)s but for "
+#~ "%(target_state)s "
+#~ msgstr ""
+#~ "il substato %(name)s non è definito per lo sato %(state)s ma per "
+#~ "%(target_state)s "

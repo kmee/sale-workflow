@@ -5,7 +5,6 @@
 # Copyright 2017 David Vidal <david.vidal@tecnativa.com>
 # Copyright 2023 glueckkanja AG - CRogos
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-
 from odoo import models
 
 
@@ -16,7 +15,3 @@ class SaleOrder(models.Model):
         lines = self.mapped("order_line")
         lines._compute_name()
         return True
-
-    def _recalculate_prices(self):
-        for rec in self:
-            rec.action_update_prices()

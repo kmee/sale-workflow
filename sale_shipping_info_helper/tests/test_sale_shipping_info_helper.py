@@ -8,13 +8,13 @@ from odoo.tools import float_compare
 
 class TestDeliveryCost(common.TransactionCase):
     def setUp(self):
-        super(TestDeliveryCost, self).setUp()
+        super().setUp()
         self.tax_model = self.env["account.tax"]
         self.SaleOrder = self.env["sale.order"]
         self.SaleOrderLine = self.env["sale.order.line"]
 
         self.partner_18 = self.env.ref("base.res_partner_18")
-        self.pricelist = self.env.ref("product.list0")
+        self.pricelist = self.env["product.pricelist"].create({"name": "Test PL"})
         self.product_4 = self.env.ref("product.product_product_4")
         self.product_uom_unit = self.env.ref("uom.product_uom_unit")
         self.normal_delivery = self.env.ref("delivery.delivery_local_delivery")

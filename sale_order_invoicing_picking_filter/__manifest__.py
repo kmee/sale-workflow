@@ -14,5 +14,5 @@
         "wizard/sale_make_invoice_advanced_views.xml",
         "views/stock_picking_views.xml",
     ],
-    "installable": True,
+    "installable": False,
 }

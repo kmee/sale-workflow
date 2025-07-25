@@ -6,7 +6,7 @@
 
 {
     "name": "Sale Order Line Cancel",
-    "version": "16.0.1.2.0",
+    "version": "17.0.1.0.0",
     "author": "Okia, BCIM, Camptocamp, ACSONE SA/NV, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "category": "Sales",
@@ -20,4 +20,5 @@
     ],
     "website": "https://github.com/OCA/sale-workflow",
     "pre_init_hook": "pre_init_hook",
+    "installable": False,
 }

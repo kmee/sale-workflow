@@ -15,6 +15,6 @@
         "stock_picking_line_sequence",
     ],
     "data": [],
-    "installable": True,
+    "installable": False,
     "auto_install": True,
 }

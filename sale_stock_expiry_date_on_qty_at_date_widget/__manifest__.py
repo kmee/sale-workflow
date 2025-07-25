@@ -12,7 +12,7 @@
     "maintainers": ["Shide", "rafaelbn"],
     "license": "LGPL-3",
     "application": False,
-    "installable": True,
+    "installable": False,
     "depends": [
         "sale_stock",
         "product_expiry",

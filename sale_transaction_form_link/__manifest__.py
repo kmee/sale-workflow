@@ -5,7 +5,7 @@
     "name": "Sale Transaction Form Link",
     "summary": """
         Allows to display a link to payment transactions on Sale Order form view.""",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "license": "AGPL-3",
     "author": "ACSONE SA/NV,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/sale-workflow",
@@ -20,4 +20,5 @@
     "demo": [
         "demo/payment_transaction.xml",
     ],
+    "installable": False,
 }

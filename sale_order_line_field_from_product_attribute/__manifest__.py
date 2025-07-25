@@ -13,7 +13,7 @@
     "data": [
         "views/product_attribute_view.xml",
     ],
-    "installable": True,
+    "installable": False,
     "maintainer": ["dreispt", "Nikul-OSI"],
     "development_status": "Beta",
 }

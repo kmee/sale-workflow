@@ -3,7 +3,7 @@
 
 {
     "name": "Store Attribute value sis Sales Order line fields",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "author": "Open Source Integrators, Odoo Community Association (OCA)",
     "summary": "Store Attribute value sis Sales Order line fields",
     "website": "https://github.com/OCA/sale-workflow",

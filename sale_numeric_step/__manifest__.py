@@ -4,7 +4,7 @@
 {
     "name": "Sale numeric step widgets",
     "summary": "Improve mobile/tablet sale process by adding numeric step widgets",
-    "version": "16.0.1.0.1",
+    "version": "17.0.1.0.0",
     "development_status": "Alpha",
     "category": "Sales",
     "website": "https://github.com/OCA/sale-workflow",
@@ -15,4 +15,5 @@
     "data": [
         "views/sale_order_view.xml",
     ],
+    "installable": False,
 }

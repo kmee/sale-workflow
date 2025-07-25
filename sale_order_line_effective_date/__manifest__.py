@@ -12,7 +12,7 @@
     "maintainers": ["EmilioPascual", "rafaelbn", "Shide"],
     "license": "LGPL-3",
     "application": False,
-    "installable": True,
+    "installable": False,
     "depends": [
         "sale_stock",
     ],

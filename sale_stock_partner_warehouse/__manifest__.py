@@ -10,7 +10,7 @@
     "author": "Camptocamp, BCIM, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": False,
-    "installable": True,
+    "installable": False,
     "data": [
         "views/partner_view.xml",
     ],

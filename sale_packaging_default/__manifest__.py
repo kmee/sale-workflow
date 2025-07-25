@@ -12,7 +12,7 @@
     "maintainers": ["yajo"],
     "license": "LGPL-3",
     "application": False,
-    "installable": True,
+    "installable": False,
     "depends": ["sale"],
     "data": [
         "views/sale_order_view.xml",

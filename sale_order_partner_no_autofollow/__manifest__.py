@@ -9,7 +9,7 @@
     "maintainers": [],
     "data": ["views/res_config_settings.xml"],
     "license": "AGPL-3",
-    "installable": True,
+    "installable": False,
     "auto_install": False,
     "application": False,
 }

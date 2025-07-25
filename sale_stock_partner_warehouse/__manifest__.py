@@ -3,7 +3,7 @@
 {
     "name": "sale stock partner wharehouse",
     "summary": "Allow to choose by default a warehouse on SO based on a Partner parameter",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "development_status": "Alpha",
     "category": "Warehouse Management",
     "website": "https://github.com/OCA/sale-workflow",

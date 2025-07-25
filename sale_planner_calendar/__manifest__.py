@@ -10,7 +10,7 @@
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": False,
-    "installable": True,
+    "installable": False,
     "depends": ["calendar", "sale", "sale_payment_sheet"],
     "data": [
         "security/ir.model.access.csv",

@@ -4,7 +4,7 @@
 {
     "name": "Sale Order Line Effective Dates",
     "summary": "Calculated effective dates in Sale Order Lines",
-    "version": "16.0.1.1.0",
+    "version": "17.0.1.0.0",
     "development_status": "Alpha",
     "category": "Sales/Sales",
     "website": "https://github.com/OCA/sale-workflow",

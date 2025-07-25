@@ -3,7 +3,7 @@
 
 {
     "name": "Sale Product Packaging Container Deposit",
-    "version": "16.0.1.1.1",
+    "version": "17.0.1.0.0",
     "development_status": "Beta",
     "category": "Product",
     "summary": "Sale Product Packaging Container Deposit",

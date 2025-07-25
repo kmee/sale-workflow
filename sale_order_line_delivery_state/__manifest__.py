@@ -9,7 +9,7 @@
     "website": "https://github.com/OCA/sale-workflow",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "installable": True,
+    "installable": False,
     "depends": ["sale"],
     "data": ["views/sale_order_views.xml"],
     "demo": [],

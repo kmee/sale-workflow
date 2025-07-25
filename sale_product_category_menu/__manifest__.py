@@ -9,7 +9,7 @@
     "author": "Sygel, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": False,
-    "installable": True,
+    "installable": False,
     "depends": ["sale"],
     "data": ["views/sale_views.xml"],
 }

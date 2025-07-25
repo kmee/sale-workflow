@@ -10,7 +10,7 @@
     "author": "Camptocamp, BCIM, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": False,
-    "installable": True,
+    "installable": False,
     "depends": ["product_packaging_level_salable", "sale_stock"],
     "data": [
         "views/product_packaging.xml",

@@ -18,5 +18,5 @@
         "views/view_sale_order_recurrence_wizard.xml",
         "views/action.xml",
     ],
-    "installable": True,
+    "installable": False,
 }

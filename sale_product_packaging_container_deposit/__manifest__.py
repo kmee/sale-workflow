@@ -12,6 +12,6 @@
     "license": "AGPL-3",
     "depends": ["sale_stock", "product_packaging_container_deposit"],
     "data": [],
-    "installable": True,
+    "installable": False,
     "auto_install": False,
 }

@@ -3,7 +3,7 @@
 {
     "name": "Sale Order - Ordered Weight",
     "summary": "Add Ordered weights on sale order and sale order line levels",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "category": "Sales",
     "author": "GRAP, Xtendoo, Odoo Community Association (OCA)",
     "maintainers": ["legalsylvain"],

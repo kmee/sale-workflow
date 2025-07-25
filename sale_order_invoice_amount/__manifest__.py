@@ -16,7 +16,7 @@
     "data": [
         "views/sale_order_view.xml",
     ],
-    "installable": True,
+    "installable": False,
     "pre_init_hook": "pre_init_hook",
     "assets": {
         "web.assets_backend": [

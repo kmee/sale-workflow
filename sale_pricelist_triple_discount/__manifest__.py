@@ -17,5 +17,5 @@
         "view/product_pricelist_item_views.xml",
     ],
     "auto_install": False,
-    "installable": True,
+    "installable": False,
 }

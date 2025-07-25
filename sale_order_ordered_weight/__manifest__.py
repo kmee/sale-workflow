@@ -9,7 +9,7 @@
     "maintainers": ["legalsylvain"],
     "website": "https://github.com/OCA/sale-workflow",
     "license": "AGPL-3",
-    "installable": True,
+    "installable": False,
     "depends": ["sale"],
     "data": [
         "views/sale_order_view.xml",

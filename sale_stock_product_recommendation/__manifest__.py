@@ -12,7 +12,7 @@
     "maintainers": ["yajo", "rafaelbn"],
     "license": "AGPL-3",
     "application": False,
-    "installable": True,
+    "installable": False,
     "auto_install": True,
     "depends": ["sale_stock", "sale_order_product_recommendation"],
     "data": [

@@ -10,7 +10,7 @@
     "website": "https://github.com/OCA/sale-workflow",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "installable": True,
+    "installable": False,
     "post_init_hook": "_post_init_hook",
     "uninstall_hook": "_uninstall_hook",
     "depends": ["sale_stock"],

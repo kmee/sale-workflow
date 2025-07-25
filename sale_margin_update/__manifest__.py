@@ -7,7 +7,7 @@
     "author": "Oscar Soto, Sidoo Soluciones S.L., Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/sale-workflow",
     "license": "LGPL-3",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "depends": [
         "sale",
         "sales_team",
@@ -18,4 +18,5 @@
         "views/sale_order_views.xml",
         "wizard/recalculate_price_margin.xml",
     ],
+    "installable": False,
 }

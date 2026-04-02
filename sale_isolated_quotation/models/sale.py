@@ -54,7 +54,7 @@ class SaleOrder(models.Model):
         order = self.copy(self._prepare_order_from_quotation())
         self.order_id = order.id  # Reference from this quotation to order
         if self.state == "draft":
-            self.action_done()
+            self._action_done()
         return self.open_duplicated_sale_order()
 
     def open_duplicated_sale_order(self):
@@ -65,7 +65,6 @@ class SaleOrder(models.Model):
             "res_model": "sale.order",
             "context": {"default_order_sequence": True, "order_sequence": True},
             "type": "ir.actions.act_window",
-            "nodestroy": True,
             "target": "current",
             "domain": "[('order_sequence', '=', True)]",
             "res_id": self.order_id and self.order_id.id or False,

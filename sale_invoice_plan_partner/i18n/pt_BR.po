@@ -1,0 +1,159 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_invoice_plan_partner
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-18 14:03+0000\n"
+"PO-Revision-Date: 2026-11-18 14:03+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+#. module: sale_invoice_plan_partner
+#. odoo-python
+#: code:addons/sale_invoice_plan_partner/models/sale_order.py:0
+msgid "An invoice plan split by payer cannot have advance installments."
+msgstr ""
+"Um plano de faturamento dividido por pagador não pode ter parcelas de "
+"adiantamento."
+
+#. module: sale_invoice_plan_partner
+#. odoo-python
+#: code:addons/sale_invoice_plan_partner/models/sale_order.py:0
+msgid "Each payer can appear only once in the plan."
+msgstr "Cada pagador só pode aparecer uma vez no plano."
+
+#. module: sale_invoice_plan_partner
+#. odoo-python
+#: code:addons/sale_invoice_plan_partner/models/sale_order.py:0
+msgid "Every installment of the plan needs a payer."
+msgstr "Toda parcela do plano precisa de um pagador."
+
+#. module: sale_invoice_plan_partner
+#: model:ir.model.fields,field_description:sale_invoice_plan_partner.field_sale_order_line__invoice_plan_payer_id
+msgid "Fixed Payer"
+msgstr "Pagador Fixo"
+
+#. module: sale_invoice_plan_partner
+#: model:ir.model.fields.selection,name:sale_invoice_plan_partner.selection__sale_order__invoice_plan_mode__installment
+msgid "Installments"
+msgstr "Parcelas"
+
+#. module: sale_invoice_plan_partner
+#: model:ir.model.fields,help:sale_invoice_plan_partner.field_sale_order__invoice_plan_mode
+msgid ""
+"Installments: the base plan, every invoice to the customer, one installment at a time.\n"
+"Payers: one invoice per payer of the plan, all created at once."
+msgstr ""
+"Parcelas: o plano padrão, todas as faturas para o cliente, uma parcela por vez.\n"
+"Pagadores: uma fatura por pagador do plano, todas criadas de uma vez."
+
+#. module: sale_invoice_plan_partner
+#: model:ir.model.fields,field_description:sale_invoice_plan_partner.field_sale_order__invoice_plan_mode
+msgid "Invoice Plan Mode"
+msgstr "Modo do Plano de Faturamento"
+
+#. module: sale_invoice_plan_partner
+#: model:ir.model,name:sale_invoice_plan_partner.model_sale_invoice_plan
+msgid "Invoice Planning Detail"
+msgstr "Detalhe do Plano de Faturamento"
+
+#. module: sale_invoice_plan_partner
+#. odoo-python
+#: code:addons/sale_invoice_plan_partner/models/sale_order.py:0
+msgid ""
+"Nothing to invoice to %(payer)s: its share is less than one unit of every "
+"line. Change the percentages or set a fixed payer on the lines."
+msgstr ""
+"Nada a faturar para %(payer)s: a parte deste pagador é menor que uma unidade"
+" em todas as linhas. Altere os percentuais ou defina um pagador fixo nas "
+"linhas."
+
+#. module: sale_invoice_plan_partner
+#: model:ir.model.fields,help:sale_invoice_plan_partner.field_sale_invoice_plan__payer_partner_id
+msgid ""
+"Partner invoiced for this installment when the plan splits the order by "
+"payer."
+msgstr ""
+"Parceiro faturado nesta parcela quando o plano divide o pedido por pagador."
+
+#. module: sale_invoice_plan_partner
+#: model:ir.model.fields,field_description:sale_invoice_plan_partner.field_sale_invoice_plan__payer_partner_id
+#: model_terms:ir.ui.view,arch_db:sale_invoice_plan_partner.view_sale_invoice_plan_filter
+msgid "Payer"
+msgstr "Pagador"
+
+#. module: sale_invoice_plan_partner
+#: model:ir.model.fields.selection,name:sale_invoice_plan_partner.selection__sale_order__invoice_plan_mode__payer
+msgid "Payers"
+msgstr "Pagadores"
+
+#. module: sale_invoice_plan_partner
+#: model:ir.model.fields,field_description:sale_invoice_plan_partner.field_sale_invoice_plan__plan_date
+msgid "Plan Date"
+msgstr "Data do Plano"
+
+#. module: sale_invoice_plan_partner
+#. odoo-python
+#: code:addons/sale_invoice_plan_partner/models/sale_invoice_plan.py:0
+msgid ""
+"Plan quantity: %(plan_qty)s, exceed invoiceable quantity: %(invoiceable_qty)s\n"
+"Product should be delivered before invoice"
+msgstr ""
+"Quantidade do plano: %(plan_qty)s, acima da quantidade faturável: %(invoiceable_qty)s\n"
+"O produto deve ser entregue antes de faturar"
+
+#. module: sale_invoice_plan_partner
+#: model:ir.model,name:sale_invoice_plan_partner.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de Venda"
+
+#. module: sale_invoice_plan_partner
+#: model:ir.model,name:sale_invoice_plan_partner.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Linha do Pedido de Venda"
+
+#. module: sale_invoice_plan_partner
+#. odoo-python
+#: code:addons/sale_invoice_plan_partner/models/sale_order.py:0
+msgid "The fixed payer of these lines is not in the invoice plan: %(lines)s"
+msgstr ""
+"O pagador fixo destas linhas não está no plano de faturamento: %(lines)s"
+
+#. module: sale_invoice_plan_partner
+#. odoo-python
+#: code:addons/sale_invoice_plan_partner/models/sale_invoice_plan.py:0
+msgid ""
+"The payer of an invoiced installment cannot be changed. Cancel its invoices "
+"first."
+msgstr ""
+"O pagador de uma parcela faturada não pode ser alterado. Cancele as faturas "
+"dela antes."
+
+#. module: sale_invoice_plan_partner
+#. odoo-python
+#: code:addons/sale_invoice_plan_partner/models/sale_order.py:0
+msgid "The payers of the invoice plan must add up to 100%%, not %(total)s%%."
+msgstr ""
+"Os pagadores do plano de faturamento devem somar 100%%, não %(total)s%%."
+
+#. module: sale_invoice_plan_partner
+#: model:ir.model.fields,help:sale_invoice_plan_partner.field_sale_order_line__invoice_plan_payer_id
+msgid ""
+"When the invoice plan splits by payer, the whole line is invoiced to this "
+"payer instead of being split."
+msgstr ""
+"Quando o plano de faturamento divide por pagador, a linha inteira é faturada"
+" para este pagador em vez de ser dividida."
+
+#. module: sale_invoice_plan_partner
+#: model:ir.model,name:sale_invoice_plan_partner.model_sale_make_planned_invoice
+msgid "Wizard when create invoice by plan"
+msgstr "Assistente para criar faturas pelo plano"

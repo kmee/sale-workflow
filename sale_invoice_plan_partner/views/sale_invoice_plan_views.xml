@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 KMEE
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html) -->
+<odoo>
+    <record id="view_sale_invoice_plan_list" model="ir.ui.view">
+        <field name="name">sale.invoice.plan.list.payer</field>
+        <field name="model">sale.invoice.plan</field>
+        <field name="inherit_id" ref="sale_invoice_plan.view_sale_invoice_plan_list" />
+        <field name="arch" type="xml">
+            <field name="installment" position="after">
+                <field
+                    name="payer_partner_id"
+                    readonly="no_edit"
+                    column_invisible="parent.invoice_plan_mode != 'payer'"
+                    required="parent.invoice_plan_mode == 'payer'"
+                />
+            </field>
+            <field name="invoice_type" position="attributes">
+                <attribute
+                    name="column_invisible"
+                >parent.invoice_plan_mode == 'payer'</attribute>
+            </field>
+            <field name="amount" position="attributes">
+                <attribute
+                    name="readonly"
+                >no_edit or parent.invoice_plan_mode == 'payer'</attribute>
+            </field>
+            <field name="to_invoice" position="attributes">
+                <attribute
+                    name="column_invisible"
+                >parent.invoice_plan_mode == 'payer'</attribute>
+            </field>
+            <!-- Installment first, after a handle to drag the payers: the
+                 first ones win the ties of the split -->
+            <field name="distribution_analytic_account_ids" position="before">
+                <field name="installment" position="move" />
+                <field name="payer_partner_id" position="move" />
+            </field>
+            <field name="installment" position="before">
+                <field
+                    name="installment"
+                    widget="handle"
+                    column_invisible="parent.invoice_plan_mode != 'payer'"
+                />
+            </field>
+        </field>
+    </record>
+    <record id="view_sale_invoice_plan_form" model="ir.ui.view">
+        <field name="name">sale.invoice.plan.form.payer</field>
+        <field name="model">sale.invoice.plan</field>
+        <field name="inherit_id" ref="sale_invoice_plan.view_sale_invoice_plan_form" />
+        <field name="arch" type="xml">
+            <field name="installment" position="after">
+                <field name="payer_partner_id" />
+            </field>
+        </field>
+    </record>
+    <record id="view_sale_invoice_plan_list_readonly" model="ir.ui.view">
+        <field name="name">sale.invoice.plan.list.readonly.payer</field>
+        <field name="model">sale.invoice.plan</field>
+        <field
+            name="inherit_id"
+            ref="sale_invoice_plan.view_sale_invoice_plan_list_readonly"
+        />
+        <field name="arch" type="xml">
+            <field name="installment" position="after">
+                <field name="payer_partner_id" optional="show" />
+            </field>
+        </field>
+    </record>
+    <record id="view_sale_invoice_plan_filter" model="ir.ui.view">
+        <field name="name">sale.invoice.plan.filter.payer</field>
+        <field name="model">sale.invoice.plan</field>
+        <field
+            name="inherit_id"
+            ref="sale_invoice_plan.view_sale_invoice_plan_filter"
+        />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="payer_partner_id" />
+            </field>
+            <filter name="groupby_customer" position="after">
+                <filter
+                    string="Payer"
+                    name="groupby_payer"
+                    domain="[]"
+                    context="{'group_by': 'payer_partner_id'}"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>

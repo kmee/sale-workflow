@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 KMEE
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html) -->
+<odoo>
+    <record id="view_order_form_invoice_plan_payer" model="ir.ui.view">
+        <field name="name">sale.order.form.invoice.plan.payer</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_invoice_plan.view_order_form_invoice_plan" />
+        <field name="arch" type="xml">
+            <field name="invoice_plan_ids" position="before">
+                <group>
+                    <field
+                        name="invoice_plan_mode"
+                        widget="radio"
+                        options="{'horizontal': true}"
+                        readonly="invoice_count > 0"
+                    />
+                </group>
+            </field>
+            <field name="invoice_plan_ids" position="attributes">
+                <attribute
+                    name="invisible"
+                >not invoice_plan_ids and invoice_plan_mode != 'payer'</attribute>
+                <attribute
+                    name="context"
+                >{'list_view_ref': 'sale_invoice_plan.view_sale_invoice_plan_list', 'default_payer_partner_id': partner_invoice_id}</attribute>
+            </field>
+            <xpath
+                expr="//field[@name='order_line']/list/field[@name='price_unit']"
+                position="before"
+            >
+                <field
+                    name="invoice_plan_payer_id"
+                    optional="show"
+                    column_invisible="not parent.use_invoice_plan or parent.invoice_plan_mode != 'payer'"
+                    readonly="qty_invoiced > 0"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

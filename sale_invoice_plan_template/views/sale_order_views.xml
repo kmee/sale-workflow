@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 KMEE
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html) -->
+<odoo>
+    <record id="view_order_form_invoice_plan_template" model="ir.ui.view">
+        <field name="name">sale.order.form.invoice.plan.template</field>
+        <field name="model">sale.order</field>
+        <field
+            name="inherit_id"
+            ref="sale_invoice_plan_partner.view_order_form_invoice_plan_payer"
+        />
+        <field name="arch" type="xml">
+            <field name="invoice_plan_mode" position="after">
+                <label
+                    for="invoice_plan_template_id"
+                    invisible="invoice_plan_mode != 'payer'"
+                />
+                <div class="o_row" invisible="invoice_plan_mode != 'payer'">
+                    <field
+                        name="invoice_plan_template_id"
+                        readonly="invoice_count > 0"
+                    />
+                    <button
+                        name="action_load_invoice_plan_payers"
+                        string="Load payers"
+                        type="object"
+                        class="btn-link"
+                        icon="fa-refresh"
+                        invisible="not invoice_plan_template_id or invoice_count > 0"
+                    />
+                </div>
+            </field>
+        </field>
+    </record>
+</odoo>

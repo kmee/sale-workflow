@@ -16,6 +16,7 @@ class SaleInvoicePlan(models.Model):
         "the order by payer.",
     )
     plan_date = fields.Date(default=fields.Date.context_today)
+    currency_id = fields.Many2one(related="sale_id.currency_id")
 
     @api.model_create_multi
     def create(self, vals_list):

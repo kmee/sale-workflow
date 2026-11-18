@@ -20,10 +20,20 @@
                     name="column_invisible"
                 >parent.invoice_plan_mode == 'payer'</attribute>
             </field>
+            <!-- Two decimals and the order currency instead of the raw floats -->
+            <field name="percent" position="attributes">
+                <attribute name="digits">[16, 2]</attribute>
+                <attribute name="sum">Total</attribute>
+            </field>
             <field name="amount" position="attributes">
                 <attribute
                     name="readonly"
                 >no_edit or parent.invoice_plan_mode == 'payer'</attribute>
+                <attribute name="widget">monetary</attribute>
+                <attribute name="sum">Total</attribute>
+            </field>
+            <field name="amount" position="before">
+                <field name="currency_id" column_invisible="True" />
             </field>
             <field name="to_invoice" position="attributes">
                 <attribute
